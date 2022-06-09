@@ -1,50 +1,78 @@
+// Recursion //
 import java.util.Scanner;
 public class example34_01 {
+    private static int step = 0;
     public static void main(String[] args) {
         Scanner inCmd = new Scanner(System.in);
-        System.out.println("Input any string for a SuperClass to process it: ");
-        SuperClass super1 = new SuperClass(inCmd.nextLine());
-        String superText = super1.toString();
-        System.out.println(superText);
-        System.out.println("\nInput any string for a SubClass to process it: ");
-        SubClass sub1 = new SubClass(inCmd.nextLine());
-        String subText = sub1.toString();
-        System.out.println(subText); 
-        System.out.println("\nInput two strings for a SubClass to process it: ");
-        SubClass sub2 = new SubClass(inCmd.nextLine(), inCmd.nextLine());
-        subText = sub2.toString();
-        System.out.println(subText); 
+        System.out.println("Lets define an x parameter: ");
+        int x = inCmd.nextInt();
+        System.out.println("So the output of the first example is: ");
+        firstExample(x);
+        System.out.println("\nFor the second example do you want to use previous variable? Type 'y' if yes, and 'n' for redefining it >>");
+        char choice = inCmd.next().charAt(0);
+        if (choice == 'n') {
+            System.out.println("Type a new value for x");
+            x = inCmd.nextInt();
+        }
+        System.out.println("Output of second example is:");
+        secondExample(x);
+
+        System.out.println("\nStill want to use this x value? ");
+        choice = inCmd.next().charAt(0);
+        if (choice == 'n') {
+            System.out.println("Type a new value for x");
+            x = inCmd.nextInt();
+        }
+        System.out.println("\nOutput of third example is:");
+        thirdExample(x);
+
+        System.out.println("Now let's calculate factorial of a random number through recursion. Type any number below");
+        System.out.println("Factorial is equal to: "+fourthExample(inCmd.nextInt()));
+
+        System.out.println("At last. Let's enter a fibbonaci number index to check out which value is there, under that index");
+        int fib = inCmd.nextInt();
+        System.out.printf("There is a value of %d, under index %d", fifthExample(fib), fib);
         inCmd.close();
     }
-}
-class SuperClass {
-    private String text1;
-    SuperClass(String x) {
-        text1 = x;
+
+    static void firstExample(int x) {
+        System.out.print(x+" ");
+        if ((2*x+1) < 20) {
+            firstExample(2*x+1);
+        }
     }
-    public String toString() {
-        String result;
-        result = "You're inside a: " + this.getClass().getSimpleName() + "\n" + "Value of a string field: " + text1;
+    static void secondExample(int x) {
+        if ((2*x+1) < 20) {
+            secondExample(2*x+1);
+        }
+        System.out.print(x+" ");
+    }
+    static void thirdExample(int x) {
+        space();
+        System.out.println(x+" -> ");
+        step++;
+        if((2*x+1)<20) {
+            thirdExample(2*x+1);
+        }
+        step--;
+        space();
+        System.out.println(x+" <-");
+    }
+    static void space() {
+        for (int i=0; i<step; i++) {
+            System.out.print(" ");
+        }
+    }
+    static int fourthExample(int x) {
+        int result;
+        if (x==1) return x;
+        result = fourthExample(x-1)*x;
         return result;
     }
-    public String text1Get() {
-        return text1;
-    }
-}
-class SubClass extends SuperClass {
-    private String text2;
-    SubClass(String x) {
-        super(x);
-    }
-    SubClass(String x, String y) {
-        super(x);
-        text2 = y;
-    }
-    @Override
-    public String toString() {
-        String result;
-        if (text2==null) result = "You're inside a: " + this.getClass().getSimpleName() + "\n" + "Value of a string field: " + text1Get();
-        else result = "You're inside a: " + this.getClass().getSimpleName() + "\n" + "Value of two string fields: " + text1Get() + " " + text2;
-        return result;
+
+    static int fifthExample(int x) {
+        if (x==0) return x;
+        else if (x==1) return x;
+        return fifthExample(x-2)+fifthExample(x-1);
     }
 }
