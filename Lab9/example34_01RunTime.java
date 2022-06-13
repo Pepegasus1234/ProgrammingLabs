@@ -29,7 +29,6 @@ public class example34_01RunTime {
         System.out.println("Time that is taken to delete element in the end of the linkedList is equal to: "+ getRunningTimeGetEnd(linkedList));
         System.out.println("Lets delete all the elements from the list, the time it took to do it is equal to: " + getRunningTimeDeleteAll(linkedList));
     }
-    D
     // Время заполнения списка от 0 до 3 млн //
     private static List getRunningTimeFill(List <Integer> list) {
         long start = System.currentTimeMillis();
